@@ -4,7 +4,7 @@ Fastest start: open a terminal in this folder and run `npm run local`. It waits 
 
 This project provides a voice biometric access control web app.
 
-The browser records voice samples, FastAPI handles verification, and SQLite stores member records and access logs.
+The browser records voice samples, FastAPI handles verification using the resemblyzer deep voice model, and SQLite stores member records and access logs.
 
 ## What it does
 
@@ -18,29 +18,46 @@ The browser records voice samples, FastAPI handles verification, and SQLite stor
 
 Default admin passcode: 5846
 
+## Fresh install from GitHub
+
+Run these commands in order:
+
+```powershell
+git clone https://github.com/kaushikmscs7-afk/VoiceBiometric2.git
+cd VoiceBiometric2
+npm install
+python -m pip install resemblyzer
+npm run local
+```
+
 ## How to use
 
-1. Run `npm install` once if dependencies are missing.
-2. Start the app with `npm run local`.
-3. Open http://127.0.0.1:8765/ if the browser does not open automatically.
-4. Allow microphone access.
-5. Use Voice access to test a login.
-6. Unlock the dashboard with the admin passcode to enroll members and review logs.
+1. Open http://127.0.0.1:8765/ if the browser does not open automatically.
+2. Allow microphone access.
+3. Unlock the dashboard with the admin passcode to enroll members.
+4. Enroll each member with 6 voice samples.
+5. Use Voice access to verify identity.
 
 ## One-time setup on a new machine
 
-If Python dependencies are missing, install them from the backend folder:
+Install Node and Python dependencies:
 
 ```powershell
-cd backend
-python -m pip install -r requirements.txt
+npm install
+python -m pip install resemblyzer
 ```
 
 After that, the app can run as long as the required packages are already installed.
 
+## Important notes
+
+- resemblyzer must be installed with pip for voice verification to work.
+- Delete `backend/voicebiometric.sqlite3` and re-enroll all members if you reinstall or update the backend.
+- The default admin passcode is 5846.
+
 ## Local files of interest
 
-- `backend/main.py` for the API and offline voice matching
+- `backend/main.py` for the API and voice matching
 - `backend/static/index.html` for the UI
 - `backend/static/app.js` for browser logic
 - `backend/static/styles.css` for the layout
